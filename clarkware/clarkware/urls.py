@@ -13,6 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', index, name='index'),
+    path('dashboard/', home, name='home'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

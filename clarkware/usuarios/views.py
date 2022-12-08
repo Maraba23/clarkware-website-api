@@ -80,3 +80,7 @@ def index(request):
 
 
     return render(request, 'index.html')
+
+@login_required(login_url='index')
+def home(request):
+    return render(request, 'dashboard.html')
