@@ -22,16 +22,17 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="index.html">
+          <a class="sidebar-brand brand-logo" href="{% url 'dashboard' %}">
             <!-- <img src="assets/images/logo.svg" alt="logo" /> -->C L A R K W A R E
           </a>
-          <a class="sidebar-brand brand-logo-mini" href="index.html">
+          <a class="sidebar-brand brand-logo-mini" href="{% url 'dashboard' %}">
             <!-- <img src="assets/images/logo-mini.svg" alt="logo" /> -->C.W.
           </a>
         </div>
@@ -43,7 +44,7 @@
                   <!-- <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt=""> -->
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">{{request.user}} | uid: {{request.user.id}}</h5>
+                  <h5 class="mb-0 font-weight-normal">{{request.user}} | uid: {{current_user.id}}</h5>
                   <span>Member</span>
                 </div>
               </div>
@@ -78,7 +79,7 @@
             <span class="nav-link">Navigation</span>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{% url 'dashboard' %}">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
@@ -86,7 +87,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="{% url 'redeem_key' %}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
@@ -94,7 +95,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="#">
               <span class="menu-icon">
                 <i class="mdi mdi-contacts"></i>
               </span>
@@ -131,7 +132,9 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="{% url 'dashboard' %}">
+
+            </a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -186,6 +189,8 @@
         </nav>
         {% block content %}
         {% endblock %}
+        </div>
+        </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
@@ -222,5 +227,7 @@
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
+    {% load sweetify %}
+    {% sweetify %}
   </body>
 </html>

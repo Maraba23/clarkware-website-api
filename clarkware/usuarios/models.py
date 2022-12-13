@@ -10,9 +10,11 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=100, null=True)
     email = models.EmailField(max_length=100, null=True)
-    hwid = models.CharField(max_length=100, null=True)
+    hwid = models.CharField(max_length=100, null=True, blank=True)
     is_banned = models.BooleanField(default=False)
     auth_token = models.CharField(max_length=100, null=True)
+    is_admin = models.BooleanField(default=False)
+    is_premium = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -23,6 +25,8 @@ class Product(models.Model):
     version = models.CharField(max_length=100, null=True)
     dll = models.FileField(upload_to='dlls/', null=True)
     exe = models.FileField(upload_to='exes/', null=True)
+    last_update = models.DateTimeField(auto_now=True)
+    status = models.CharField(choices=(('Undetected', 'Undetected'), ('Updating', 'Updating'), ('Use at your own risk', 'Use at your own risk'), ('Detected', 'Detected')), max_length=100, null=True)
 
     def __str__(self):
         return self.name

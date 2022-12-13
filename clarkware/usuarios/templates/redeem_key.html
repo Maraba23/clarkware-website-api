@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> Redeem your key </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Redeem Key</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Redeem</h4>
+              <p class="card-description"> Put your key inside the box and submit it </p>
+              <form class="forms-sample">
+                <div class="form-group">
+                  <label for="exampleInputUsername1">key</label>
+                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Key">
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                <button class="btn btn-dark" onclick="window.location.replace('../dashboard')">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+{% endblock %}

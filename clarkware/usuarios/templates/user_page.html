@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title"> User profile page </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">User Page</li>
+                </ol>
+              </nav>
+        </div>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">User Profile</h4>
+                        <h6 class="card-title"> User information </h5>
+                        <p class="card-description">Username: - {{ user.username }}</p>
+                        <p class="card-description">uid: - {{ current_user.id }}</p>
+                        <p class="card-description">Email: - {{ user.email }}</p>
+                        <br>
+                        <h4 class="card-title">User Subscriptions</h4>
+                        <p class="card-description"> User subscriptions </p>
+                        <ul class="list-group">
+                            {% for subscription in user.subscriptions.all %}
+                                <li class="list-group-item">{{ subscription.name }} | time left: {{ subscription.time_left }}</li>
+                            {% endfor %}
+                        </ul>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Change information</h4>
+                        <h6 class="card-title"> Change your information </h6>
+                            <form class="forms-sample">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email address</label>
+                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                </div>
+                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                              </form>
+                            <br>
+                            <form class="forms-sample">
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Password</label>
+                                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                </div>
+                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        <!-- </div>
+    </div>
+</div> -->
+
+
+
+
+{% endblock %}

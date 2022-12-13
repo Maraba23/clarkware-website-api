@@ -64,7 +64,7 @@ def index(request):
                     user = User.objects.get(username=request.POST['username'])
                     if user.check_password(request.POST['password']):
                         auth_login(request, user)
-                        return redirect('home')
+                        return redirect('dashboard')
                     else:
                         sweetify.error(request, 'Incorrect password', icon='error', button='OK', timer='3000')
                         return redirect('index')
@@ -82,5 +82,81 @@ def index(request):
     return render(request, 'index.html')
 
 @login_required(login_url='index')
-def home(request):
-    return render(request, 'dashboard.html')
+def dashboard(request):
+    max_profiles = Profile.objects.all().count()
+    current_user = Profile.objects.get(user=request.user)
+    subscribed_profiles = Subscription.objects.all().count()
+    return render(request, 'dashboard.html', {'max_profiles': max_profiles, 'current_user': current_user, 'subscribed_profiles': subscribed_profiles})
+
+@login_required(login_url='index')
+def redeem_key(request):
+    current_user = Profile.objects.get(user=request.user)
+    return render(request, 'redeem_key.html', {'current_user': current_user})
+
+@login_required(login_url='index')
+def user_page(request):
+    current_user = Profile.objects.get(user=request.user)
+    return render(request, 'user_page.html', {'current_user': current_user})
+
+
+
+
+
+
+
+#==================================================================================================#
+
+
+@login_required(login_url='index')
+def admin_page_keys(request):
+    current_user = Profile.objects.get(user=request.user)
+    if current_user.is_admin:
+        return render(request, 'admin_page_keys.html', {'current_user': current_user})
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
+
+@login_required(login_url='index')
+def admin_page_users(request):
+    current_user = Profile.objects.get(user=request.user)
+    all_users = Profile.objects.all()
+    if current_user.is_admin:
+        return render(request, 'admin_page_users.html', {'current_user': current_user, 'all_users': all_users})
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
+
+@login_required(login_url='index')
+def admin_page_user_edit(request, pk):
+    current_user = Profile.objects.get(user=request.user)
+    if current_user.is_admin:
+        user = Profile.objects.get(pk=pk)
+        return render(request, 'admin_page_user_edit.html', {'current_user': current_user, 'user': user})
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
+
+@login_required(login_url='index')
+def admin_page_user_delete(request, pk):
+    current_user = Profile.objects.get(user=request.user)
+    if current_user.is_admin:
+        user = Profile.objects.get(pk=pk)
+        return render(request, 'admin_page_user_delete.html', {'current_user': current_user, 'user': user})
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
+
+
+#$=================================================================================================$#
+
+@login_required(login_url='index')
+def admin_page_status_and_uploads(request):
+    current_user = Profile.objects.get(user=request.user)
+    if current_user.is_admin:
+        return render(request, 'admin_page_status_and_uploads.html', {'current_user': current_user})
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
+
+
+#$=================================================================================================$#
