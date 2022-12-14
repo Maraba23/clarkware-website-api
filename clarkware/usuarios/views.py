@@ -137,11 +137,23 @@ def admin_page_user_edit(request, pk):
         return redirect('dashboard')
 
 @login_required(login_url='index')
-def admin_page_user_delete(request, pk):
+def admin_page_user_delete_sub(request, pk):
     current_user = Profile.objects.get(user=request.user)
     if current_user.is_admin:
         user = Profile.objects.get(pk=pk)
         return render(request, 'admin_page_user_delete.html', {'current_user': current_user, 'user': user})
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
+
+@login_required(login_url='index')
+def admin_page_user_delete(request, pk):
+    current_user = Profile.objects.get(user=request.user)
+    if current_user.is_admin:
+        user = Profile.objects.get(pk=pk)
+        user.delete()
+        sweetify.success(request, 'User deleted', icon='success', button='OK', timer='3000')
+        return redirect('admin_page_users')
     else:
         sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
         return redirect('dashboard')

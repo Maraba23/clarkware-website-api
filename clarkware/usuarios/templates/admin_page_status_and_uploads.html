@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title"> Upload & status </h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Admin Area</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Admin panel</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Upload Files</h4>
+                    <p class="card-description"> Upload your files </p>
+                    <form class="forms-sample">
+                        <h5 class="card-title">Lite version</h5>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Upload dll</label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll">
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Upload</button>
+                      <br><br>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Upload driver</label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver">
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Upload</button>
+                    </form><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Product Status</h4>
+                    <p class="card-description"> Product status </p>
+                    <form class="forms-sample">
+                        <!-- Lite, Semi-Rage, Rage status with a select box -->
+                        <label for="exampleFormControlSelect2">Lite version status</label>
+                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2">
+                          <option style="color: white;">Undetected</option>
+                          <option style="color: white;">Updating</option>
+                          <option style="color: white;">Use at your own risk</option>
+                          <option style="color: white;">Detected</option>
+                        </select>
+                        <br><br>
+                        <label for="exampleFormControlSelect2">Semi-Rage version status</label>
+                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2">
+                          <option style="color: white;">Undetected</option>
+                          <option style="color: white;">Updating</option>
+                          <option style="color: white;">Use at your own risk</option>
+                          <option style="color: white;">Detected</option>
+                        </select>
+                        <br><br>
+                        <label for="exampleFormControlSelect2">Rage version status</label>
+                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2">
+                          <option style="color: white;">Undetected</option>
+                          <option style="color: white;">Updating</option>
+                          <option style="color: white;">Use at your own risk</option>
+                          <option style="color: white;">Detected</option>
+                        </select>
+                        <br><br>
+                        <button type="submit" class="btn btn-primary me-2">Update</button>
+                    </form>
+                </div>
+            </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Upload Files</h4>
+                    <p class="card-description"> Upload your files </p>
+                    <form class="forms-sample">
+                        <h5 class="card-title">Semi Rage version</h5>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Upload dll</label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll">
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Upload</button>
+                      <br><br>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Upload driver</label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver">
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Upload</button>
+                    </form><br>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Upload Files</h4>
+                    <p class="card-description"> Upload your files </p>
+                    <form class="forms-sample">
+                        <h5 class="card-title">Full Rage version</h5>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Upload dll</label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll">
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Upload</button>
+                      <br><br>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Upload driver</label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver">
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Upload</button>
+                    </form><br>
+                </div>
+            </div>
+        </div>
+      
+
+
+{% endblock %}

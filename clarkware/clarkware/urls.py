@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin-page/user/edit/<int:pk>/', admin_page_user_edit, name='admin_page_user_edit'),
     path('admin-page/user/delete/<int:pk>/', admin_page_user_delete, name='admin_page_user_delete'),
     path('admin-page/status_and_uploads/', admin_page_status_and_uploads, name='admin_page_status_and_uploads'),
+    path('admin-page/user/delete/<int:pk>/', admin_page_user_delete, name='admin_page_user_delete'),
+    path('admin-page/user/delete/sub/<int:pk>/', admin_page_user_delete_sub, name='admin_page_user_delete_sub'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

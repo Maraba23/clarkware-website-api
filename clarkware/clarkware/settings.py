@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# products names: lite, semirage, rage
+
 
 # Application definition
 
