@@ -19,14 +19,15 @@
             <div class="card-body">
               <h4 class="card-title">Lite version</h4>
               <p class="card-description"> Generate keys for Lite version </p>
-              <form class="forms-sample">
+              <form class="forms-sample" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                   <label for="exampleInputUsername1">Key Prefix</label>
-                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Prefix. Example: DAY, WEEK ...">
+                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Prefix. Example: DAY, WEEK ..." name="lite_prefix">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Key time</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*">
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*" name="key_lite">
                 </div>
                 <button type="submit" class="btn btn-primary me-2">Generate key</button>
               </form>
@@ -51,14 +52,16 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for lite_keys in lista_keys_lite %}
                   <tr>
-                    <td>key</td>
-                    <td>time</td>
-                    <td>User</td>
+                    <td>{{lite_keys.key}}</td>
+                    <td>{{lite_keys.time}} Days</td>
+                    <td>{{lite_keys.user.username}}</td>
                     <td>
-                        <a type="button" class="btn btn-danger btn-icon-text btn-sm" href="#">Delete</a>
+                        <a type="button" class="btn btn-danger btn-icon-text btn-sm" href="{% url 'admin_delete_key' lite_keys.id %}">Delete</a>
                     </td>
                   </tr>
+                  {% endfor %}
                 </tbody>
               </table>
             </div>

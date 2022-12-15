@@ -111,10 +111,91 @@ def user_page(request):
 def admin_page_keys(request):
     current_user = Profile.objects.get(user=request.user)
     if current_user.is_admin:
-        return render(request, 'admin_page_keys.html', {'current_user': current_user})
+        if request.method == 'POST':
+            if 'key_lite' in request.POST:
+                if 'lite_prefix' in request.POST:
+                    if request.POST['lite_prefix'] != '':
+                        key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                        key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                        key = request.POST['lite_prefix'] + '-' + key
+                        SubscriptionKey.objects.create(
+                            product=Product.objects.get(name='lite'),
+                            key=key,
+                            time=request.POST['key_lite'],
+                            user=current_user,
+                        )
+                        sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                        return redirect('admin_page_keys')
+                key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                SubscriptionKey.objects.create(
+                    product=Product.objects.get(name='lite'),
+                    key=key,
+                    time=request.POST['key_lite'],
+                    user=current_user,
+                )
+                sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_keys')
+            
+
+            if 'key_semirage' in request.POST:
+                if 'semirage_prefix' in request.POST:
+                    key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                    key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                    key = request.POST['semirage_prefix'] + '-' + key
+                    SubscriptionKey.objects.create(
+                        product=Product.objects.get(name='semirage'),
+                        key=key,
+                        time=request.POST['key_semirage'],
+                        user=current_user,
+                    )
+                    sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                    return redirect('admin_page_keys')
+                key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                SubscriptionKey.objects.create(
+                    product=Product.objects.get(name='semirage'),
+                    key=key,
+                    time=request.POST['key_semirage'],
+                    user=current_user,
+                )
+                sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_keys')
+
+            if 'key_rage' in request.POST:
+                if 'rage_prefix' in request.POST:
+                    key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                    key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                    key = request.POST['rage_prefix'] + '-' + key
+                    SubscriptionKey.objects.create(
+                        product=Product.objects.get(name='rage'),
+                        key=key,
+                        time=request.POST['key_rage'],
+                        user=current_user,
+                    )
+                    sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                    return redirect('admin_page_keys')
+                key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                SubscriptionKey.objects.create(
+                    product=Product.objects.get(name='rage'),
+                    key=key,
+                    time=request.POST['key_rage'],
+                    user=current_user,
+                )
+                sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_keys')
+
+        lista_keys_lite = SubscriptionKey.objects.filter(product=Product.objects.get(name='lite'))
+        lista_keys_semirage = SubscriptionKey.objects.filter(product=Product.objects.get(name='semirage'))
+        lista_keys_rage = SubscriptionKey.objects.filter(product=Product.objects.get(name='rage'))
+
+        return render(request, 'admin_page_keys.html', {'current_user': current_user, 'lista_keys_lite': lista_keys_lite, 'lista_keys_semirage': lista_keys_semirage, 'lista_keys_rage': lista_keys_rage})
     else:
         sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
         return redirect('dashboard')
+
+
 
 @login_required(login_url='index')
 def admin_page_users(request):
@@ -158,6 +239,17 @@ def admin_page_user_delete(request, pk):
         sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
         return redirect('dashboard')
 
+@login_required(login_url='index')
+def admin_delete_key(request, pk):
+    current_user = Profile.objects.get(user=request.user)
+    if current_user.is_admin:
+        key = SubscriptionKey.objects.get(pk=pk)
+        key.delete()
+        sweetify.success(request, 'Key deleted', icon='success', button='OK', timer='3000')
+        return redirect('admin_page_keys')
+    else:
+        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
+        return redirect('dashboard')
 
 #$=================================================================================================$#
 
