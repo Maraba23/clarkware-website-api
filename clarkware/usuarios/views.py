@@ -92,12 +92,87 @@ def dashboard(request):
 @login_required(login_url='index')
 def redeem_key(request):
     current_user = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        if 'redeem_key' in request.POST:
+            if SubscriptionKey.objects.filter(key=request.POST['redeem_key'], product=Product.objects.get(name='lite')).exists():
+                if Subscription.objects.filter(user=current_user, product=Product.objects.get(name='lite')).exists():
+                    sweetify.error(request, 'You already have a Lite subscription', icon='error', button='OK', timer='3000')
+                    return redirect('dashboard')
+                today = datetime.date.today()
+                key_time = SubscriptionKey.objects.get(key=request.POST['redeem_key'], product=Product.objects.get(name='lite')).time
+                end_date = today + datetime.timedelta(days=int(key_time))
+                Subscription.objects.create(
+                    user=current_user,
+                    product=Product.objects.get(name='lite'),
+                    end_date=end_date,
+                    end_date_loader=end_date.strftime("%Y-%m-%d"),
+                )
+                SubscriptionKey.objects.get(key=request.POST['redeem_key'], product=Product.objects.get(name='lite')).delete()
+                sweetify.success(request, 'Key redeemed successfully', icon='success', button='OK', timer='3000')
+                return redirect('dashboard')
+            elif SubscriptionKey.objects.filter(key=request.POST['redeem_key'], product=Product.objects.get(name='semirage')).exists():
+                if Subscription.objects.filter(user=current_user, product=Product.objects.get(name='semirage')).exists():
+                    sweetify.error(request, 'You already have a Semirage subscription', icon='error', button='OK', timer='3000')
+                    return redirect('dashboard')
+                today = datetime.date.today()
+                key_time = SubscriptionKey.objects.get(key=request.POST['redeem_key'], product=Product.objects.get(name='semirage')).time
+                end_date = today + datetime.timedelta(days=int(key_time))
+                Subscription.objects.create(
+                    user=current_user,
+                    product=Product.objects.get(name='semirage'),
+                    end_date=end_date,
+                    end_date_loader=end_date.strftime("%Y-%m-%d"),
+                )
+                SubscriptionKey.objects.filter(key=request.POST['redeem_key'], product=Product.objects.get(name='semirage')).delete()
+                sweetify.success(request, 'Key redeemed successfully', icon='success', button='OK', timer='3000')
+                return redirect('dashboard')
+            elif SubscriptionKey.objects.filter(key=request.POST['redeem_key'], product=Product.objects.get(name='rage')).exists():
+                if Subscription.objects.filter(user=current_user, product=Product.objects.get(name='rage')).exists():
+                    sweetify.error(request, 'You already have a Rage subscription', icon='error', button='OK', timer='3000')
+                    return redirect('dashboard')
+                today = datetime.date.today()
+                key_time = SubscriptionKey.objects.get(key=request.POST['redeem_key'], product=Product.objects.get(name='rage')).time
+                end_date = today + datetime.timedelta(days=int(key_time))
+                Subscription.objects.create(
+                    user=current_user,
+                    product=Product.objects.get(name='rage'),
+                    end_date=end_date,
+                    end_date_loader=end_date.strftime("%Y-%m-%d"),
+                )
+                SubscriptionKey.objects.get(key=request.POST['redeem_key'], product=Product.objects.get(name='rage')).delete()
+                sweetify.success(request, 'Key redeemed successfully', icon='success', button='OK', timer='3000')
+                return redirect('dashboard')
+            else:
+                sweetify.error(request, 'Invalid key', icon='error', button='OK', timer='3000')
+                return redirect('dashboard')
     return render(request, 'redeem_key.html', {'current_user': current_user})
 
 @login_required(login_url='index')
 def user_page(request):
     current_user = Profile.objects.get(user=request.user)
-    return render(request, 'user_page.html', {'current_user': current_user})
+    if request.method == 'POST':
+        if 'change_password' in request.POST:
+            current_user.user.set_password(request.POST['change_password'])
+            current_user.user.save()
+            sweetify.success(request, 'Password changed successfully', icon='success', button='OK', timer='3000')
+            return redirect('user_page')
+        elif 'change_email' in request.POST:
+            current_user.user.email = request.POST['change_email']
+            current_user.user.save()
+            sweetify.success(request, 'Email changed successfully', icon='success', button='OK', timer='3000')
+            return redirect('user_page')
+    
+    # get the user's subscriptions
+    user_subscriptions = Subscription.objects.filter(user=current_user)
+    for subscription in user_subscriptions:
+        if subscription.end_date.strftime("%Y-%m-%d") < datetime.date.today().strftime("%Y-%m-%d"):
+            subscription.delete()
+        else:
+            days_left = subscription.end_date.date() - datetime.date.today()
+            subscription.days_left = days_left.days
+            subscription.save()
+
+    return render(request, 'user_page.html', {'current_user': current_user, 'user_subscriptions': user_subscriptions})
 
 
 

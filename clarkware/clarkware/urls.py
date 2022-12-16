@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin-page/user/delete/key/<int:pk>/', admin_delete_key, name='admin_delete_key'),
 
 
+    path('clark.api/', include('api.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

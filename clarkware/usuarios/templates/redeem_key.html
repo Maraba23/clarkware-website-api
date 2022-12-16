@@ -18,10 +18,11 @@
             <div class="card-body">
               <h4 class="card-title">Redeem</h4>
               <p class="card-description"> Put your key inside the box and submit it </p>
-              <form class="forms-sample">
+              <form class="forms-sample" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                   <label for="exampleInputUsername1">key</label>
-                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Key">
+                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Key" name="redeem_key">
                 </div>
                 <button type="submit" class="btn btn-primary me-2">Submit</button>
                 <button class="btn btn-dark" onclick="window.location.replace('../dashboard')">Cancel</button>
