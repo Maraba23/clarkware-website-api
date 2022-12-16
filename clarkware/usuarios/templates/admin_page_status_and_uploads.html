@@ -19,17 +19,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Upload Files</h4>
                     <p class="card-description"> Upload your files </p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
                         <h5 class="card-title">Lite version</h5>
                       <div class="form-group">
                         <label for="exampleInputUsername1">Upload dll</label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll">
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll" name="upload_lite_dll">
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Upload</button>
-                      <br><br>
+                      <br>
+                      </form>
+                      <form class="forms-sample" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <br>
                       <div class="form-group">
                         <label for="exampleInputUsername1">Upload driver</label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver">
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver" name="upload_lite_driver">
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Upload</button>
                     </form><br>
@@ -41,33 +46,34 @@
                 <div class="card-body">
                     <h4 class="card-title">Product Status</h4>
                     <p class="card-description"> Product status </p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" method="post">
+                      {% csrf_token %}
                         <!-- Lite, Semi-Rage, Rage status with a select box -->
                         <label for="exampleFormControlSelect2">Lite version status</label>
-                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2">
-                          <option style="color: white;">Undetected</option>
-                          <option style="color: white;">Updating</option>
-                          <option style="color: white;">Use at your own risk</option>
-                          <option style="color: white;">Detected</option>
+                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2" name="lite_status">
+                          <option value="0" style="color: white;">Undetected</option>
+                          <option value="1" style="color: white;">Updating</option>
+                          <option value="2" style="color: white;">Use at your own risk</option>
+                          <option value="3" style="color: white;">Detected</option>
                         </select>
                         <br><br>
                         <label for="exampleFormControlSelect2">Semi-Rage version status</label>
-                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2">
-                          <option style="color: white;">Undetected</option>
-                          <option style="color: white;">Updating</option>
-                          <option style="color: white;">Use at your own risk</option>
-                          <option style="color: white;">Detected</option>
+                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2" name="semirage_status">
+                          <option value="0" style="color: white;">Undetected</option>
+                          <option value="1" style="color: white;">Updating</option>
+                          <option value="2" style="color: white;">Use at your own risk</option>
+                          <option value="3" style="color: white;">Detected</option>
                         </select>
                         <br><br>
                         <label for="exampleFormControlSelect2">Rage version status</label>
-                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2">
-                          <option style="color: white;">Undetected</option>
-                          <option style="color: white;">Updating</option>
-                          <option style="color: white;">Use at your own risk</option>
-                          <option style="color: white;">Detected</option>
+                        <select class="form-control" style="color: white;" id="exampleFormControlSelect2" name="rage_status">
+                          <option value="0" style="color: white;">Undetected</option>
+                          <option value="1" style="color: white;">Updating</option>
+                          <option value="2" style="color: white;">Use at your own risk</option>
+                          <option value="3" style="color: white;">Detected</option>
                         </select>
                         <br><br>
-                        <button type="submit" class="btn btn-primary me-2">Update</button>
+                        <button name="update_status" type="submit" class="btn btn-primary me-2">Update</button>
                     </form>
                 </div>
             </div>
@@ -79,17 +85,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Upload Files</h4>
                     <p class="card-description"> Upload your files </p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
                         <h5 class="card-title">Semi Rage version</h5>
                       <div class="form-group">
                         <label for="exampleInputUsername1">Upload dll</label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll">
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll" name="upload_semirage_dll">
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Upload</button>
-                      <br><br>
+                      <br>
+                      </form>
+                      <form method="post" enctype="multipart/form-data" class="forms-sample">
+                        {% csrf_token %}
+                      <br>
                       <div class="form-group">
                         <label for="exampleInputUsername1">Upload driver</label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver">
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver" name="upload_semirage_driver">
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Upload</button>
                     </form><br>
@@ -101,17 +112,22 @@
                 <div class="card-body">
                     <h4 class="card-title">Upload Files</h4>
                     <p class="card-description"> Upload your files </p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
                         <h5 class="card-title">Full Rage version</h5>
                       <div class="form-group">
                         <label for="exampleInputUsername1">Upload dll</label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll">
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".dll" placeholder="Upload dll" name="upload_rage_dll">
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Upload</button>
-                      <br><br>
+                      <br>
+                      </form>
+                      <form method="post" enctype="multipart/form-data" class="forms-sample">
+                        {% csrf_token %}
+                      <br>
                       <div class="form-group">
                         <label for="exampleInputUsername1">Upload driver</label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver">
+                        <input type="file" class="form-control" id="exampleInputUsername1" accept=".sys" placeholder="Upload driver" name="upload_rage_driver">
                       </div>
                       <button type="submit" class="btn btn-primary me-2">Upload</button>
                     </form><br>

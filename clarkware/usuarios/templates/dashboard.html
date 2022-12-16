@@ -130,19 +130,29 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for produto in lista_produtos %}
                           <tr>
                             <td>
-                              <span class="ps-2">Lite</span>
+                              <span class="ps-2">{{produto.name}}</span>
                             </td>
-                            <td> v1.3 </td>
-                            <td> 12/12/2022 </td>
+                            <td> {{produto.version}} </td>
+                            <td> {{produto.last_update}} </td>
                             <td>  </td>
                             <td>  </td>
                             <td>  </td>
                             <td>
-                              <div class="badge badge-outline-success">Undetected</div>
+                              {% if produto.status == "Undetected" %}
+                              <div class="badge badge-outline-success">{{produto.status}}</div>
+                              {% elif produto.status == "Updating" %}
+                              <div class="badge badge-outline-warning">{{produto.status}}</div>
+                              {% elif produto.status == "Use at your own risk" %}
+                              <div class="badge badge-outline-warning">{{produto.status}}</div>
+                              {% elif produto.status == "Detected" %}
+                              <div class="badge badge-outline-danger">{{produto.status}}</div>
+                              {% endif %}
                             </td>
                           </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
                     </div>

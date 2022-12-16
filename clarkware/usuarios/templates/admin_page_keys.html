@@ -29,7 +29,7 @@
                   <label for="exampleInputEmail1">Key time</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*" name="key_lite">
                 </div>
-                <button type="submit" class="btn btn-primary me-2">Generate key</button>
+                <button name="gen_lite" type="submit" class="btn btn-primary me-2">Generate key</button>
               </form>
             </div>
           </div>
@@ -74,16 +74,17 @@
                 <div class="card-body">
                   <h4 class="card-title">Semi-Rage version</h4>
                   <p class="card-description"> Generate keys for Semi-Rage version </p>
-                  <form class="forms-sample">
+                  <form class="forms-sample" method="post">
+                    {% csrf_token %}
                     <div class="form-group">
                       <label for="exampleInputUsername1">Key Prefix</label>
-                      <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Prefix. Example: DAY, WEEK ...">
+                      <input name="semirage_prefix" type="text" class="form-control" id="exampleInputUsername1" placeholder="Prefix. Example: DAY, WEEK ...">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Key time</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*">
+                      <input name="key_semirage" type="text" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*">
                     </div>
-                    <button type="submit" class="btn btn-primary me-2">Generate key</button>
+                    <button name="gen_semirage" type="submit" class="btn btn-primary me-2">Generate key</button>
                   </form>
                 </div>
               </div>
@@ -106,14 +107,16 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {% for semi_keys in lista_keys_semirage %}
                       <tr>
-                        <td>key</td>
-                        <td>time</td>
-                        <td>User</td>
+                        <td>{{semi_keys.key}}</td>
+                        <td>{{semi_keys.time}} Days</td>
+                        <td>{{semi_keys.user.username}}</td>
                         <td>
-                            <a type="button" class="btn btn-danger btn-icon-text btn-sm" href="#">Delete</a>
+                            <a type="button" class="btn btn-danger btn-icon-text btn-sm" href="{% url 'admin_delete_key' semi_keys.id %}">Delete</a>
                         </td>
                       </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div>
@@ -126,16 +129,17 @@
                     <div class="card-body">
                       <h4 class="card-title">Full Rage version</h4>
                       <p class="card-description"> Generate keys for Full Rage version </p>
-                      <form class="forms-sample">
+                      <form class="forms-sample" method="post">
+                        {% csrf_token %}
                         <div class="form-group">
                           <label for="exampleInputUsername1">Key Prefix</label>
-                          <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Prefix. Example: DAY, WEEK ...">
+                          <input name="rage_prefix" type="text" class="form-control" id="exampleInputUsername1" placeholder="Prefix. Example: DAY, WEEK ...">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Key time</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*">
+                          <input name="key_rage" type="text" class="form-control" id="exampleInputEmail1" placeholder="Time (DAYS) of sub*">
                         </div>
-                        <button type="submit" class="btn btn-primary me-2">Generate key</button>
+                        <button name="gen_rage" type="submit" class="btn btn-primary me-2">Generate key</button>
                       </form>
                     </div>
                   </div>
@@ -158,14 +162,16 @@
                           </tr>
                         </thead>
                         <tbody>
+                          {% for rage_keys in lista_keys_rage %}
                           <tr>
-                            <td>key</td>
-                            <td>time</td>
-                            <td>User</td>
+                            <td>{{rage_keys.key}}</td>
+                            <td>{{rage_keys.time}} Days</td>
+                            <td>{{rage_keys.user.username}}</td>
                             <td>
-                                <a type="button" class="btn btn-danger btn-icon-text btn-sm" href="#">Delete</a>
+                                <a type="button" class="btn btn-danger btn-icon-text btn-sm" href="{% url 'admin_delete_key' rage_keys.id %}">Delete</a>
                             </td>
                           </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
                     </div>

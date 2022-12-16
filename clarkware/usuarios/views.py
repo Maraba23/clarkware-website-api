@@ -86,7 +86,8 @@ def dashboard(request):
     max_profiles = Profile.objects.all().count()
     current_user = Profile.objects.get(user=request.user)
     subscribed_profiles = Subscription.objects.all().count()
-    return render(request, 'dashboard.html', {'max_profiles': max_profiles, 'current_user': current_user, 'subscribed_profiles': subscribed_profiles})
+    lista_produtos = Product.objects.all()
+    return render(request, 'dashboard.html', {'max_profiles': max_profiles, 'current_user': current_user, 'subscribed_profiles': subscribed_profiles, 'lista_produtos': lista_produtos})
 
 @login_required(login_url='index')
 def redeem_key(request):
@@ -112,61 +113,75 @@ def admin_page_keys(request):
     current_user = Profile.objects.get(user=request.user)
     if current_user.is_admin:
         if request.method == 'POST':
-            if 'key_lite' in request.POST:
-                if 'lite_prefix' in request.POST:
-                    if request.POST['lite_prefix'] != '':
-                        key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
-                        key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
-                        key = request.POST['lite_prefix'] + '-' + key
-                        SubscriptionKey.objects.create(
-                            product=Product.objects.get(name='lite'),
-                            key=key,
-                            time=request.POST['key_lite'],
-                            user=current_user,
-                        )
-                        sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
-                        return redirect('admin_page_keys')
-                key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
-                key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
-                SubscriptionKey.objects.create(
-                    product=Product.objects.get(name='lite'),
-                    key=key,
-                    time=request.POST['key_lite'],
-                    user=current_user,
-                )
-                sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
-                return redirect('admin_page_keys')
-            
-
-            if 'key_semirage' in request.POST:
-                if 'semirage_prefix' in request.POST:
+            if "gen_lite" in request.POST:
+                if 'key_lite' in request.POST:
+                    if 'lite_prefix' in request.POST:
+                        if request.POST['lite_prefix'] != '':
+                            key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                            key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                            key = request.POST['lite_prefix'] + '-' + key
+                            SubscriptionKey.objects.create(
+                                product=Product.objects.get(name='lite'),
+                                key=key,
+                                time=request.POST['key_lite'],
+                                user=current_user,
+                            )
+                            sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                            return redirect('admin_page_keys')
                     key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
                     key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
-                    key = request.POST['semirage_prefix'] + '-' + key
+                    SubscriptionKey.objects.create(
+                        product=Product.objects.get(name='lite'),
+                        key=key,
+                        time=request.POST['key_lite'],
+                        user=current_user,
+                    )
+                    sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                    return redirect('admin_page_keys')
+            
+            elif "gen_semirage" in request.POST:
+                if 'key_semirage' in request.POST:
+                    if 'semirage_prefix' in request.POST:
+                        if request.POST['semirage_prefix'] != '':
+                            key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                            key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                            key = request.POST['semirage_prefix'] + '-' + key
+                            SubscriptionKey.objects.create(
+                                product=Product.objects.get(name='semirage'),
+                                key=key,
+                                time=request.POST['key_semirage'],
+                                user=current_user,
+                            )
+                            sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                            return redirect('admin_page_keys')
+                    key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                    key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
                     SubscriptionKey.objects.create(
                         product=Product.objects.get(name='semirage'),
                         key=key,
                         time=request.POST['key_semirage'],
                         user=current_user,
                     )
-                    sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
-                    return redirect('admin_page_keys')
-                key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
-                key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
-                SubscriptionKey.objects.create(
-                    product=Product.objects.get(name='semirage'),
-                    key=key,
-                    time=request.POST['key_semirage'],
-                    user=current_user,
-                )
                 sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
                 return redirect('admin_page_keys')
 
-            if 'key_rage' in request.POST:
-                if 'rage_prefix' in request.POST:
+            elif "gen_rage" in request.POST:
+                if 'key_rage' in request.POST:
+                    if 'rage_prefix' in request.POST:
+                        if request.POST['rage_prefix'] != '':
+                            key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
+                            key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
+                            key = request.POST['rage_prefix'] + '-' + key
+                            SubscriptionKey.objects.create(
+                                product=Product.objects.get(name='rage'),
+                                key=key,
+                                time=request.POST['key_rage'],
+                                user=current_user,
+                            )
+                            sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
+                            return redirect('admin_page_keys')
                     key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
                     key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
-                    key = request.POST['rage_prefix'] + '-' + key
                     SubscriptionKey.objects.create(
                         product=Product.objects.get(name='rage'),
                         key=key,
@@ -175,16 +190,6 @@ def admin_page_keys(request):
                     )
                     sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
                     return redirect('admin_page_keys')
-                key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=30))
-                key = key[:5] + '-' + key[5:10] + '-' + key[10:15] + '-' + key[15:20] + '-' + key[20:]
-                SubscriptionKey.objects.create(
-                    product=Product.objects.get(name='rage'),
-                    key=key,
-                    time=request.POST['key_rage'],
-                    user=current_user,
-                )
-                sweetify.success(request, 'Key created successfully', icon='success', button='OK', timer='3000')
-                return redirect('admin_page_keys')
 
         lista_keys_lite = SubscriptionKey.objects.filter(product=Product.objects.get(name='lite'))
         lista_keys_semirage = SubscriptionKey.objects.filter(product=Product.objects.get(name='semirage'))
@@ -212,29 +217,39 @@ def admin_page_user_edit(request, pk):
     current_user = Profile.objects.get(user=request.user)
     if current_user.is_admin:
         user = Profile.objects.get(pk=pk)
+
+        if request.method == 'POST':
+            if 'delete_user' in request.POST:
+                user.delete()
+                sweetify.success(request, 'User deleted', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_users')
+            elif 'delete_user_subscriptions' in request.POST:
+                Subscription.objects.filter(user=user).delete()
+                sweetify.success(request, 'User subscriptions deleted', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_users')
+            elif 'reset_user_hwid' in request.POST:
+                user.hwid = ''
+                user.save()
+                sweetify.success(request, 'User HWID reset', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_users')
+            if 'update' in request.POST:
+                if request.POST['password'] != '':
+                    user.user.set_password(request.POST['password'])
+                    user.user.save()
+                    sweetify.success(request, 'User password changed', icon='success', button='OK', timer='3000')
+                    return redirect('admin_page_users')
+                elif request.POST['email'] != '':
+                    user.user.email = request.POST['email']
+                    user.user.save()
+                    sweetify.success(request, 'User email changed', icon='success', button='OK', timer='3000')
+                    return redirect('admin_page_users')
+                elif request.POST['username'] != '':
+                    user.user.username = request.POST['username']
+                    user.user.save()
+                    sweetify.success(request, 'User username changed', icon='success', button='OK', timer='3000')
+                    return redirect('admin_page_users')
+
         return render(request, 'admin_page_user_edit.html', {'current_user': current_user, 'user': user})
-    else:
-        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
-        return redirect('dashboard')
-
-@login_required(login_url='index')
-def admin_page_user_delete_sub(request, pk):
-    current_user = Profile.objects.get(user=request.user)
-    if current_user.is_admin:
-        user = Profile.objects.get(pk=pk)
-        return render(request, 'admin_page_user_delete.html', {'current_user': current_user, 'user': user})
-    else:
-        sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
-        return redirect('dashboard')
-
-@login_required(login_url='index')
-def admin_page_user_delete(request, pk):
-    current_user = Profile.objects.get(user=request.user)
-    if current_user.is_admin:
-        user = Profile.objects.get(pk=pk)
-        user.delete()
-        sweetify.success(request, 'User deleted', icon='success', button='OK', timer='3000')
-        return redirect('admin_page_users')
     else:
         sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')
         return redirect('dashboard')
@@ -257,6 +272,59 @@ def admin_delete_key(request, pk):
 def admin_page_status_and_uploads(request):
     current_user = Profile.objects.get(user=request.user)
     if current_user.is_admin:
+        if request.method == 'POST':
+            if 'upload_lite_dll' in request.FILES:
+                Product.objects.filter(name='lite').update(dll=request.FILES['upload_lite_dll'])
+                sweetify.success(request, 'DLL uploaded', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')
+            elif 'upload_lite_driver' in request.FILES:
+                Product.objects.filter(name='lite').update(driver=request.FILES['upload_lite_driver'])
+                sweetify.success(request, 'Driver uploaded', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')
+            elif 'upload_semirage_dll' in request.FILES:
+                Product.objects.filter(name='semirage').update(dll=request.FILES['upload_semirage_dll'])
+                sweetify.success(request, 'DLL uploaded', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')
+            elif 'upload_semirage_driver' in request.FILES:
+                Product.objects.filter(name='semirage').update(driver=request.FILES['upload_semirage_driver'])
+                sweetify.success(request, 'Driver uploaded', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')
+            elif 'upload_rage_dll' in request.FILES:
+                Product.objects.filter(name='rage').update(dll=request.FILES['upload_rage_dll'])
+                sweetify.success(request, 'DLL uploaded', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')
+            elif 'upload_rage_driver' in request.FILES:
+                Product.objects.filter(name='rage').update(driver=request.FILES['upload_rage_driver'])
+                sweetify.success(request, 'Driver uploaded', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')
+            
+            if 'update_status' in request.POST:
+                if request.POST['lite_status'] == '0':
+                    Product.objects.filter(name='lite').update(status='Undetected')
+                elif request.POST['lite_status'] == '1':
+                    Product.objects.filter(name='lite').update(status='Updating')
+                elif request.POST['lite_status'] == '2':
+                    Product.objects.filter(name='lite').update(status='Use at your own risk')
+                elif request.POST['lite_status'] == '3':
+                    Product.objects.filter(name='lite').update(status='Detected')
+                if request.POST['semirage_status'] == '0':
+                    Product.objects.filter(name='semirage').update(status='Undetected')
+                elif request.POST['semirage_status'] == '1':
+                    Product.objects.filter(name='semirage').update(status='Updating')
+                elif request.POST['semirage_status'] == '2':
+                    Product.objects.filter(name='semirage').update(status='Use at your own risk')
+                elif request.POST['semirage_status'] == '3':
+                    Product.objects.filter(name='semirage').update(status='Detected')
+                if request.POST['rage_status'] == '0':
+                    Product.objects.filter(name='rage').update(status='Undetected')
+                elif request.POST['rage_status'] == '1':
+                    Product.objects.filter(name='rage').update(status='Updating')
+                elif request.POST['rage_status'] == '2':
+                    Product.objects.filter(name='rage').update(status='Use at your own risk')
+                elif request.POST['rage_status'] == '3':
+                    Product.objects.filter(name='rage').update(status='Detected')
+                sweetify.success(request, 'Status updated', icon='success', button='OK', timer='3000')
+                return redirect('admin_page_status_and_uploads')    
         return render(request, 'admin_page_status_and_uploads.html', {'current_user': current_user})
     else:
         sweetify.error(request, 'You are not authorized to view this page', icon='error', button='OK', timer='3000')

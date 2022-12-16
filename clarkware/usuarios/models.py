@@ -24,7 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, null=True)
     version = models.CharField(max_length=100, null=True, blank=True)
     dll = models.FileField(upload_to='dlls/', null=True, blank=True)
-    exe = models.FileField(upload_to='exes/', null=True, blank=True)
+    driver = models.FileField(upload_to='driver/', null=True, blank=True)
     last_update = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=(('Undetected', 'Undetected'), ('Updating', 'Updating'), ('Use at your own risk', 'Use at your own risk'), ('Detected', 'Detected')), max_length=100, null=True)
 

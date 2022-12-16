@@ -22,17 +22,17 @@
               <form class="forms-sample">
                 <div class="form-group">
                   <label for="exampleInputUsername1">Username (current:{{user.username}})</label>
-                  <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                  <input name="username" type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address (current:{{user.email}})</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                  <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                <button name="update" type="submit" class="btn btn-primary me-2">Update</button>
               </form>
             </div>
           </div>
@@ -44,11 +44,11 @@
                     <p class="card-description"> Delete account or sub </p>
                     <form class="forms-sample">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-danger me-2">Delete User</button>
+                            <button name="delete_user" type="submit" class="btn btn-danger me-2">Delete User</button>
                             <br><br>
-                            <button type="submit" class="btn btn-danger me-2">Delete Sub</button>
+                            <button name="delete_user_subscriptions" type="submit" class="btn btn-danger me-2">Delete Sub</button>
                             <br><br>
-                            <button type="submit" class="btn btn-warning me-2">Reset User Hwid</button>
+                            <button name="reset_user_hwid" type="submit" class="btn btn-warning me-2">Reset User Hwid</button>
                         <div class="form-group">
                     </form>
                 </div>
