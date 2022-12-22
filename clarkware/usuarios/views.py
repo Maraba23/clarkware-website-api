@@ -407,3 +407,8 @@ def admin_page_status_and_uploads(request):
 
 
 #$=================================================================================================$#
+
+########## DOWNLOADS ##########
+
+def download_dll(request, apikey, user_id, user_token, product_id):
+    pass

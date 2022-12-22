@@ -34,7 +34,6 @@ def see_if_user_exists(request, apikey, username, password):
     else:
         return Response({'exists': False})
 
-
 @api_view(['GET'])
 def get_profile_by_username(request, apikey, username):
     if apikey == API_KEY:
@@ -64,3 +63,14 @@ def check_hwid(request, apikey, username, hwid):
             return Response('False')
     else:
         return Response({'exists': False})
+
+@api_view(['GET'])
+def user_subscription(request, apikey, user_id, product_id):
+    if apikey == API_KEY:
+        try:
+            subs = Subscription.objects.filter(user=user_id, product=product_id).first()
+            return Response({'sub': subs.end_date_loader})
+        except:
+            return Response({'sub': 'no_sub'})
+    else:
+        return Response({'sub': 'no_sub'})

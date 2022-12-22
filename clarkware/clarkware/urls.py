@@ -25,4 +25,7 @@ urlpatterns = [
 
     path('clark.api/', include('api.urls')),
 
+    # download dlls and drivers
+    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
