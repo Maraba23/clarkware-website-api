@@ -22,13 +22,11 @@ urlpatterns = [
     path('admin-page/status_and_uploads/', admin_page_status_and_uploads, name='admin_page_status_and_uploads'),
     path('admin-page/user/delete/key/<int:pk>/', admin_delete_key, name='admin_delete_key'),
 
-    path("download_dll/<int:apikey>/<int:user_id>/<str:user_token>/<int:product_id>/", download_dll, name='download_dll'),
-    path("download_driver/<int:apikey>/<int:user_id>/<str:user_token>/<int:product_id>/", download_driver, name='download_driver'),
-
 
     path('clark.api/', include('api.urls')),
 
     # download dlls and drivers
-    
+    path("download_dll/<int:apikey>/<int:user_id>/<str:user_token>/<int:product_id>/", download_dll, name='download_dll'),
+    path("download_driver/<int:apikey>/<int:user_id>/<str:user_token>/<int:product_id>/", download_driver, name='download_driver'),   
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
