@@ -411,4 +411,65 @@ def admin_page_status_and_uploads(request):
 ########## DOWNLOADS ##########
 
 def download_dll(request, apikey, user_id, user_token, product_id):
-    pass
+    if apikey == API_KEY:
+        user = Profile.objects.get(pk=user_id)
+        if user.user_token == user_token:
+            if product_id == '1':
+                product = Product.objects.get(name='lite')
+            elif product_id == '2':
+                product = Product.objects.get(name='semirage')
+            elif product_id == '3':
+                product = Product.objects.get(name='rage')
+            else:
+                return HttpResponse('Invalid product ID')
+            if product.status == 'Undetected':
+                if product.dll:
+                    return FileResponse(product.dll)
+                else:
+                    return HttpResponse('DLL not found')
+            elif product.status == 'Updating':
+                return HttpResponse('DLL is updating')
+            elif product.status == 'Use at your own risk':
+                return FileResponse(product.dll)
+            elif product.status == 'Detected':
+                return HttpResponse('DLL is detected')
+            else:
+                return HttpResponse('Invalid product status')
+        else:
+            return HttpResponse('Invalid user token')
+    else:
+        return HttpResponse('Invalid API key')
+
+#$=================================================================================================$#
+
+def download_driver(request, apikey, user_id, user_token, product_id):
+    if apikey == API_KEY:
+        user = Profile.objects.get(pk=user_id)
+        if user.user_token == user_token:
+            if product_id == '1':
+                product = Product.objects.get(name='lite')
+            elif product_id == '2':
+                product = Product.objects.get(name='semirage')
+            elif product_id == '3':
+                product = Product.objects.get(name='rage')
+            else:
+                return HttpResponse('Invalid product ID')
+            if product.status == 'Undetected':
+                if product.driver:
+                    return FileResponse(product.driver)
+                else:
+                    return HttpResponse('Driver not found')
+            elif product.status == 'Updating':
+                return HttpResponse('Driver is updating')
+            elif product.status == 'Use at your own risk':
+                return FileResponse(product.driver)
+            elif product.status == 'Detected':
+                return HttpResponse('Driver is detected')
+            else:
+                return HttpResponse('Invalid product status')
+        else:
+            return HttpResponse('Invalid user token')
+    else:
+        return HttpResponse('Invalid API key')
+
+#$=================================================================================================$#
