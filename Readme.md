@@ -23,6 +23,7 @@ The project itself was for a r6 cheat company but they did not want the api anym
 <p> The website is made with Django and Django REST Framework, to make it run you need python instaled on your computer </p>
 <br>
 <b> Install this libs: </b><br>
+
 ```bash
   pip install django
   pip install sweetfy
@@ -30,8 +31,10 @@ The project itself was for a r6 cheat company but they did not want the api anym
   pip install django-rest-knox
   pip install channels
 ```
+
 <br>
 <b> To run the website you need this commands: </b><br>
+
 ```bash
   cd .\clarkware\
   python manage.py makemigrations
