@@ -42,7 +42,7 @@ The project itself was for a r6 cheat company but they did not want the api anym
   python manage.py runserver
 ```
 
-<b style="color: red;"> DO NOT CHANGE ANYTHING IN THE DB, THE PRODUCTS ARE ALREADY PRE-SETED </b>
+<b style="color: red;"> DO NOT CHANGE ANYTHING IN THE DATABASE, THE PRODUCTS ARE ALREADY PRE-SETED </b>
 
 <h3 style="color: yellow;"> Api docs </h3>
 
